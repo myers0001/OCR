@@ -1,0 +1,21 @@
+Tensor("Placeholder:0", shape=(?, ?, ?, 3), dtype=float32)
+Tensor("conv5_3/conv5_3:0", shape=(?, ?, ?, 512), dtype=float32)
+Tensor("rpn_conv/3x3/rpn_conv/3x3:0", shape=(?, ?, ?, 512), dtype=float32)
+Tensor("lstm_o/Reshape_2:0", shape=(?, ?, ?, 512), dtype=float32)
+Tensor("lstm_o/Reshape_2:0", shape=(?, ?, ?, 512), dtype=float32)
+Tensor("rpn_cls_score/Reshape_1:0", shape=(?, ?, ?, 20), dtype=float32)
+Tensor("rpn_cls_prob:0", shape=(?, ?, ?, ?), dtype=float32)
+Tensor("Reshape_2:0", shape=(?, ?, ?, 20), dtype=float32)
+Tensor("rpn_bbox_pred/Reshape_1:0", shape=(?, ?, ?, 40), dtype=float32)
+Tensor("Placeholder_1:0", shape=(?, 3), dtype=float32)
+Loading network VGGnet_test... 
+Restoring from ./ctpn/checkpoints/VGGnet_fast_rcnn_iter_50000.ckpt...
+done
+
+----------------------------------------------
+Detection took 4.216s for 13 object proposals
+Mission complete, it took 5.660s
+
+Recognition Result:
+
+./test_images/04DFF26367A97F48E0685A14D5B6DD94.jpg
