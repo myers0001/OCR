@@ -60,6 +60,7 @@ def readfile(filename):
     for i in res:
         p = i.split(' ')
         dic[p[0]] = p[1:]
+    #dic '58491.jpg': ['2', '2', '5', '9', '11', '15', '8', '13', '3', '11']
     return dic
 
 class random_uniform_num():
@@ -89,6 +90,7 @@ class random_uniform_num():
 def gen(data_file, image_path, batchsize=128, maxlabellength=10, imagesize=(32, 280)):
     image_label = readfile(data_file)
     _imagefile = [i for i, j in image_label.items()]
+    #print _imagefile '23186.jpg', '11380.jpg', '78634.jpg', '61548.jpg', '53030.jpg', '74030.jpg',
     x = np.zeros((batchsize, imagesize[0], imagesize[1], 1), dtype=np.float)
     labels = np.ones([batchsize, maxlabellength]) * 10000
     input_length = np.zeros([batchsize, 1])
@@ -98,6 +100,7 @@ def gen(data_file, image_path, batchsize=128, maxlabellength=10, imagesize=(32, 
     _imagefile = np.array(_imagefile)
     while 1:
         shufimagefile = _imagefile[r_n.get(batchsize)]
+        # print shufimagefile 9110.jpg' '16277.jpg' '35680.jpg' '16571.jpg' '20968.jpg' '78623.jpg'
         for i, j in enumerate(shufimagefile):
             img1 = Image.open(os.path.join(image_path, j)).convert('L')
             img = np.array(img1, 'f') / 255.0 - 0.5
@@ -105,6 +108,7 @@ def gen(data_file, image_path, batchsize=128, maxlabellength=10, imagesize=(32, 
             x[i] = np.expand_dims(img,axis=2)
             # print('imag:shape', img.shape)
             str = image_label[j]
+            #print str ['7', '4', '12', '14', '15', '8', '3', '7', '9', '6']
             label_length[i] = len(str) 
             
             if(len(str) <= 0):
@@ -112,12 +116,17 @@ def gen(data_file, image_path, batchsize=128, maxlabellength=10, imagesize=(32, 
             input_length[i] = imagesize[1] // 8
             labels[int(i), :len(str)] =[int(i) - 1 for i in str]
             #print labels
+            #print ('x=',x)  [[[[0.43333334],[0.43725491],[0.44117647],...,[0.44901961],[0.42156863],[0.38235295]
+            #print ('labels=',labels) [3.0e+00, 7.0e+00, 8.0e+00, 4.0e+00, 5.0e+00, 1.2e+01, 4.0e+00
+            #print ('input_length=',input_length) [35.]
+            #print ('label_length=',label_length) [10.]
 
         inputs = {'the_input': x,
                 'the_labels': labels,
                 'input_length': input_length,
                 'label_length': label_length,
                 }
+
         outputs = {'ctc': np.zeros([batchsize])} 
         yield (inputs, outputs)
 
